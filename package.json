@@ -10,9 +10,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@vercel/node": "^3.2.2"
-  },
-  "dependencies": {
+    "@vercel/node": "^3.2.2",
     "axios": "^1.7.2"
   }
 }
