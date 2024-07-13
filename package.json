@@ -13,5 +13,8 @@
   "devDependencies": {
     "@vercel/node": "^3.2.2",
     "axios": "^1.7.2"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.14"
   }
 }
