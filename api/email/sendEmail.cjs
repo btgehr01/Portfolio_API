@@ -1,10 +1,17 @@
 const nodemailer = require("nodemailer");
 
 module.exports = (req, res) => {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://bradygehrman.vercel.app"
-  );
+  const allowedOrigins = [
+    "https://bradygehrman.vercel.app",
+    "http://localhost:3000",
+  ];
+
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
