@@ -14,9 +14,9 @@ module.exports = (req, res) => {
   });
 
   const mailOptions = {
-    from: email,
+    from: EMAIL_USERNAME,
     to: process.env.MY_EMAIL_USERNAME,
-    subject: `New message from ${fullName}`,
+    subject: `New message from ${fullName} (${email})`,
     text: message,
   };
 
