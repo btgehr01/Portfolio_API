@@ -1,6 +1,17 @@
 const nodemailer = require("nodemailer");
 
 module.exports = (req, res) => {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://bradygehrman.vercel.app"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
   const { fullName, email, message } = req.body;
 
   if (!fullName || !email || !message) {
@@ -16,7 +27,7 @@ module.exports = (req, res) => {
   });
 
   const mailOptions = {
-    from: EMAIL_USERNAME,
+    from: process.env.EMAIL_USERNAME,
     to: process.env.MY_EMAIL_USERNAME,
     subject: `New message from ${email} (${fullName})`,
     text: message,
