@@ -1,3 +1,5 @@
+const nodemailer = require("nodemailer");
+
 module.exports = (req, res) => {
   const { fullName, email, message } = req.body;
 
