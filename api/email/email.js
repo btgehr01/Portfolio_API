@@ -1,6 +1,10 @@
 module.exports = (req, res) => {
   const { fullName, email, message } = req.body;
 
+  if (!fullName || !email || !message) {
+    return res.status(400).send("All fields are required.");
+  }
+
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
