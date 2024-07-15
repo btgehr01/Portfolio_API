@@ -19,10 +19,6 @@ export default async (req, res) => {
     return res.status(200).end();
   }
 
-  if (req.method === "POST") {
-    return res.status(200).send("POST request received successfully.");
-  }
-
   const { fullName, email, message } = req.body;
 
   if (!fullName || !email || !message) {
