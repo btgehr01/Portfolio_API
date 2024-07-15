@@ -19,6 +19,14 @@ export default async (req, res) => {
     return res.status(200).end();
   }
 
+  let body;
+  try {
+    body = JSON.parse(req.body);
+  } catch (e) {
+    console.error("Failed to parse request body as JSON:", e);
+    return res.status(400).send("Invalid JSON");
+  }
+
   const { fullName, email, message } = req.body;
 
   if (!fullName || !email || !message) {
