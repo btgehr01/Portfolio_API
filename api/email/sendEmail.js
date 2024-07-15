@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 
-export const sendEmail = (req, res) => {
+export default async (req, res) => {
   const allowedOrigins = [
     "https://bradygehrman.vercel.app",
     "http://localhost:3000",
@@ -44,11 +44,11 @@ export const sendEmail = (req, res) => {
     text: message,
   };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error("Error sending email:", error);
-      return res.status(500).send(error.toString());
-    }
+  try {
+    const info = await transporter.sendMail(mailOptions);
     res.status(200).send("Email sent: " + info.response);
-  });
+  } catch (error) {
+    console.error("Error sending email:", error);
+    res.status(500).send("Failed to send email. Please try again later.");
+  }
 };
