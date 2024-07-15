@@ -22,6 +22,9 @@ export default async (req, res) => {
   const { fullName, email, message } = req.body;
 
   if (!fullName || !email || !message) {
+    console.error(fullName);
+    console.error(email);
+    console.error(message);
     return res.status(400).send("All fields are required.");
   }
 
