@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 
-module.exports = (req, res) => {
+export const sendEmail = (req, res) => {
   const allowedOrigins = [
     "https://bradygehrman.vercel.app",
     "http://localhost:3000",
