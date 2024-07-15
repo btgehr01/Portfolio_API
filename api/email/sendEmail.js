@@ -1,4 +1,4 @@
-const nodemailer = require("nodemailer");
+import nodemailer from "nodemailer";
 
 module.exports = (req, res) => {
   const allowedOrigins = [
