@@ -42,6 +42,7 @@ module.exports = (req, res) => {
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
+      console.error("Error sending email:", error);
       return res.status(500).send(error.toString());
     }
     res.status(200).send("Email sent: " + info.response);
