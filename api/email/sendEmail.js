@@ -27,7 +27,9 @@ export default async (req, res) => {
   }
 
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp-mail.outlook.com",
+    port: 587,
+    secure: false,
     auth: {
       user: process.env.EMAIL_USERNAME,
       pass: process.env.EMAIL_PASSWORD,
@@ -44,9 +46,6 @@ export default async (req, res) => {
     subject: `New message from ${email} (${fullName})`,
     text: message,
   };
-
-  console.log(transporter);
-  console.log(mailOptions);
 
   try {
     const info = await transporter.sendMail(mailOptions);
