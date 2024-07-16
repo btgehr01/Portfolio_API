@@ -21,8 +21,6 @@ export default async (req, res) => {
 
   const { fullName, email, message } = req.body;
 
-  return res.status(500).send("Failed to send email. Please try again later.");
-
   if (!fullName || !email || !message) {
     return res.status(400).send("All fields are required.");
   }
