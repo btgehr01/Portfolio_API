@@ -34,6 +34,10 @@ export default async (req, res) => {
     },
   });
 
+  console.log(process.env.EMAIL_USERNAME);
+  console.log(process.env.EMAIL_PASSWORD);
+  console.log(process.env.MY_EMAIL_USERNAME);
+
   const mailOptions = {
     from: process.env.EMAIL_USERNAME,
     to: process.env.MY_EMAIL_USERNAME,
