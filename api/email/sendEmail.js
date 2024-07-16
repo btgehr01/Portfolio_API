@@ -41,6 +41,9 @@ export default async (req, res) => {
     text: message,
   };
 
+  console.log(transporter);
+  console.log(mailOptions);
+
   try {
     const info = await transporter.sendMail(mailOptions);
     res.status(200).send("Email sent: " + info.response);
