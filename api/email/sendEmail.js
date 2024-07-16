@@ -22,7 +22,6 @@ export default async (req, res) => {
   const { fullName, email, message } = req.body;
 
   if (!fullName || !email || !message) {
-    console.error("Validation failed:", { fullName, email, message });
     return res.status(400).send("All fields are required.");
   }
 
@@ -45,8 +44,6 @@ export default async (req, res) => {
 
   try {
     const info = await transporter.sendMail(mailOptions);
-    console.log("Email sent:", info.response);
-    console.log("Mail options:", mailOptions);
     res.status(200).send("Email sent: " + info.response);
   } catch (error) {
     console.error("Error sending email:", error);
