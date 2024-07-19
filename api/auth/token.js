@@ -7,9 +7,6 @@ export default async function getAccessToken() {
   const tokenUrl = "https://accounts.spotify.com/api/token";
   const data = new URLSearchParams({ grant_type: "client_credentials" });
 
-  console.log(clientId);
-  console.log(clientSecret);
-
   try {
     const response = await axios.post(tokenUrl, data, {
       headers: {
