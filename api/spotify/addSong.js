@@ -1,4 +1,5 @@
 import axios from "axios";
+import getAccessToken from "../auth/token.js";
 
 const playlistId = process.env.SPOTIFY_PLAYLIST_ID;
 
