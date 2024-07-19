@@ -63,7 +63,7 @@ export default async function handler(req, res) {
 
     return res.status(200).json({ message: "Song added to playlist." });
   } catch (e) {
-    console.error(e);
+    console.error(e.message);
     return res.status(500).json({ error: "Failed to add song to playlist." });
   }
 }
