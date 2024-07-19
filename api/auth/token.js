@@ -3,7 +3,7 @@ import axios from "axios";
 const clientId = process.env.SPOTIFY_CLIENT_ID;
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 
-export default async function getAccessToken() {
+async function getAccessToken() {
   const tokenUrl = "https://accounts.spotify.com/api/token";
   const data = new URLSearchParams({ grant_type: "client_credentials" });
 
@@ -22,3 +22,5 @@ export default async function getAccessToken() {
     throw error;
   }
 }
+
+export default getAccessToken;
