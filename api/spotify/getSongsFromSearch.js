@@ -21,7 +21,7 @@ export default async function handler(req, res) {
   }
   const { searchString } = req.query;
 
-  if (!searchString) {
+  if (!searchString || !searchString.trim()) {
     return res.status(400).json({ error: "searchString is required." });
   }
 
