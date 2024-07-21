@@ -4,7 +4,7 @@ import cookie from "cookie";
 const clientId = process.env.SPOTIFY_CLIENT_ID;
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 const redirect_uri = process.env.SPOTIFY_REDIRECT_URI;
-const redirect_uri_2 = process.env.FRONTEND_URL;
+const frontend_url = process.env.FRONTEND_URL;
 const loginURL = process.env.LOGIN_URL;
 
 export default async function handler(req, res) {
@@ -13,9 +13,13 @@ export default async function handler(req, res) {
   const cookies = cookie.parse(req.headers.cookie || "");
   const storedState = cookies.spotify_auth_state;
 
+  const defaultErrorMessage =
+    "Error logging into Spotify account. Please try again or contact the site admin if the issue persists.";
+
   if (!state || state !== storedState) {
     console.error("State is null or was altered.");
-    return res.redirect(redirect_uri_2);
+    const errorMessage = encodeURIComponent(defaultErrorMessage);
+    return res.redirect(`${frontend_url}/error?errorMessage=${errorMessage}`);
   }
 
   try {
@@ -50,9 +54,10 @@ export default async function handler(req, res) {
       })
     );
 
-    return res.redirect(redirect_uri_2);
+    return res.redirect(frontend_url);
   } catch (error) {
     console.error("Error exchanging authorization code:", error);
-    return res.redirect(loginURL);
+    const errorMessage = encodeURIComponent(defaultErrorMessage);
+    return res.redirect(`${frontend_url}/error?errorMessage=${errorMessage}`);
   }
 }
