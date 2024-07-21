@@ -43,7 +43,7 @@ export default async function handler(req, res) {
   console.log(req);
 
   const cookies = cookie.parse(req.headers.cookie || "");
-  const token = cookies.spotify_access_token;
+  const token = cookies.access_token;
   console.log(token);
 
   if (!token) {
