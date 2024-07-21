@@ -83,6 +83,9 @@ export default async function handler(req, res) {
     return res.status(200).json({ message: "Song added to playlist." });
   } catch (e) {
     console.error("Failed to add song to playlist:", e.message);
+    if (e.response && e.response.status === 401) {
+      return res.redirect("https://bradygehrman-api.vercel.app/api/auth/login");
+    }
     return res.status(500).json({ error: "Failed to add song to playlist." });
   }
 }

@@ -22,6 +22,18 @@ export default async function handler(req, res) {
     return res.redirect(`${frontend_url}/error?errorMessage=${errorMessage}`);
   }
 
+  res.setHeader(
+    "Set-Cookie",
+    cookie.serialize("spotify_auth_state", "", {
+      httpOnly: true,
+      secure: true,
+      maxAge: -1,
+      path: "/",
+      domain: ".bradygehrman-api.vercel.app",
+      sameSite: "strict",
+    })
+  );
+
   try {
     const params = new URLSearchParams();
     params.append("code", code);
@@ -50,6 +62,7 @@ export default async function handler(req, res) {
         secure: true,
         maxAge: 60 * 60,
         path: "/",
+        domain: ".bradygehrman-api.vercel.app",
         sameSite: "strict",
       })
     );
