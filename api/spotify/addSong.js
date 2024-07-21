@@ -21,23 +21,12 @@ async function getPlaylistTracks(token) {
 }
 
 export default async function handler(req, res) {
-  const allowedOrigins = [
-    "https://bradygehrman.vercel.app",
-    "http://localhost:3000",
-  ];
-
-  const origin = req.headers.origin;
-
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  }
-
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-
   if (req.method === "OPTIONS") {
-    console.log("OPTIONS");
+    console.log("Handling OPTIONS request for CORS");
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000"); // Adjust according to your frontend origin
+    res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
     return res.status(200).end();
   }
 
