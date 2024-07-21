@@ -13,18 +13,19 @@ export default async function handler(req, res) {
   const storedState = cookies.spotify_auth_state;
 
   if (!state || state !== storedState) {
-    console.error("Response state is null or was altered");
-    res.redirect(loginURL);
+    console.error("State is null or was altered");
+    return res.redirect(loginURL);
   }
 
   try {
+    const params = new URLSearchParams();
+    params.append("code", code);
+    params.append("redirect_uri", redirect_uri);
+    params.append("grant_type", "authorization_code");
+
     const response = await axios.post(
       "https://accounts.spotify.com/api/token",
-      querystring.stringify({
-        code: code,
-        redirect_uri: redirect_uri,
-        grant_type: "authorization_code",
-      }),
+      params.toString(),
       {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -48,9 +49,9 @@ export default async function handler(req, res) {
       })
     );
 
-    res.redirect(redirect_uri_2);
+    return res.redirect(redirect_uri_2);
   } catch (error) {
     console.error("Error exchanging authorization code:", error);
-    res.redirect(loginURL);
+    return res.redirect(loginURL);
   }
 }

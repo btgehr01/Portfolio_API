@@ -34,5 +34,5 @@ export default function handler(req, res) {
       state: state,
     });
 
-  res.redirect(redirectUrl);
+  return res.redirect(redirectUrl);
 }
