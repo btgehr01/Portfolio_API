@@ -20,6 +20,7 @@ export default function handler(req, res) {
       secure: true,
       maxAge: 60 * 5,
       path: "/",
+      domain: ".bradygehrman-api.vercel.app",
       sameSite: "strict",
     })
   );
