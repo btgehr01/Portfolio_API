@@ -28,8 +28,7 @@ export default async function handler(req, res) {
         secure: true,
         maxAge: -1,
         path: "/",
-        domain: ".bradygehrman-api.vercel.app",
-        sameSite: "strict",
+        sameSite: "lax",
       })
     );
 
@@ -61,7 +60,6 @@ export default async function handler(req, res) {
           secure: true,
           maxAge: 60 * 60,
           path: "/",
-          domain: ".bradygehrman-api.vercel.app",
           sameSite: "strict",
         })
       );
