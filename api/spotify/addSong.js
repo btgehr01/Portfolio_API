@@ -41,6 +41,9 @@ export default async function handler(req, res) {
   }
 
   const cookies = cookie.parse(req.headers.cookie || "");
+
+  console.log(cookies);
+
   const token = cookies.access_token;
 
   console.log(token);
