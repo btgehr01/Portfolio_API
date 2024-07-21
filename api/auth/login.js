@@ -12,6 +12,8 @@ export default function handler(req, res) {
   const state = generateRandomString(16);
   const scopes = "playlist-modify-public user-read-email";
 
+  console.log(state);
+
   res.setHeader(
     "Set-Cookie",
     cookie.serialize("spotify_auth_state", state, {
