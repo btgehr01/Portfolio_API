@@ -39,9 +39,8 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
-  const { cookies } = req;
-  console.log(cookies);
-  const token = cookies["access_token"];
+  const cookies = cookie.parse(req.headers.cookie || "");
+  const token = cookies.spotify_access_token;
 
   if (!token) {
     console.log("Access token is null");
