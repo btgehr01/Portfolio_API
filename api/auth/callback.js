@@ -60,7 +60,7 @@ export default async function handler(req, res) {
           secure: true,
           maxAge: 60 * 60,
           path: "/",
-          sameSite: "strict",
+          sameSite: "lax",
         })
       );
 
