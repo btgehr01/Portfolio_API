@@ -9,12 +9,13 @@ const loginURL = process.env.LOGIN_URL;
 
 export default async function handler(req, res) {
   const { code, state } = req.query;
+  console.log("req", req);
   const cookies = cookie.parse(req.headers.cookie || "");
   const storedState = cookies.spotify_auth_state;
 
   if (!state || state !== storedState) {
     console.error("State is null or was altered.");
-    return res.redirect(loginURL);
+    return res.redirect(redirect_uri_2);
   }
 
   try {
