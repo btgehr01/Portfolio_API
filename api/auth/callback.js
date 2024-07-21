@@ -5,12 +5,12 @@ const clientId = process.env.SPOTIFY_CLIENT_ID;
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 const redirect_uri = process.env.SPOTIFY_REDIRECT_URI;
 const frontend_url = process.env.FRONTEND_URL;
-const loginURL = process.env.LOGIN_URL;
 
 export default async function handler(req, res) {
   const { code, state } = req.query;
-  console.log("req", req);
+  console.log("state", state);
   const cookies = cookie.parse(req.headers.cookie || "");
+  console.log("cookies", cookies);
   const storedState = cookies.spotify_auth_state;
 
   const defaultErrorMessage =
