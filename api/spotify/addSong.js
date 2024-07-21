@@ -32,8 +32,9 @@ export default async function handler(req, res) {
     res.setHeader("Access-Control-Allow-Origin", origin);
   }
 
-  res.setHeader("Access-Control-Allow-Methods", "GET", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
 
   if (req.method === "OPTIONS") {
     return res.status(200).end();
@@ -47,7 +48,11 @@ export default async function handler(req, res) {
     return res.redirect(loginURL);
   }
 
-  const { songURI } = req.query;
+  const { songURI } = req.body;
+
+  if (!songURI) {
+    return res.status(400).json({ error: "songURI is required." });
+  }
 
   if (!songURI) {
     return res.status(400).json({ error: "songURI is required." });
