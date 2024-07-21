@@ -40,14 +40,11 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
-  console.log(req);
-
   const cookies = cookie.parse(req.headers.cookie || "");
   const token = cookies.access_token;
-  console.log(token);
 
   if (!token) {
-    console.log("Access token is null");
+    console.error("Access token is null");
     return res.status(401).json({ error: "Unauthorized. Please log in." });
   }
 
