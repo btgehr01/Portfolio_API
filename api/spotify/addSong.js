@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const playlistId = process.env.SPOTIFY_PLAYLIST_ID;
+const loginURL = process.env.LOGIN_URL;
 
 async function getPlaylistTracks(token) {
   try {
