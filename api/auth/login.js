@@ -1,9 +1,8 @@
-import querystring from "querystring";
 import crypto from "crypto";
 import cookie from "cookie";
 
 const clientId = process.env.SPOTIFY_CLIENT_ID;
-const redirect_uri = process.env.SPOTIFY_REDIRECT_URI;
+const redirectUri = process.env.SPOTIFY_REDIRECT_URI;
 
 function generateRandomString(length) {
   return crypto.randomBytes(length).toString("hex");
@@ -25,15 +24,15 @@ export default function handler(req, res) {
     })
   );
 
-  const redirectUrl =
-    "https://accounts.spotify.com/authorize?" +
-    querystring.stringify({
-      response_type: "code",
-      client_id: clientId,
-      scope: scopes,
-      redirect_uri: redirect_uri,
-      state: state,
-    });
+  const params = new URLSearchParams({
+    response_type: "code",
+    client_id: clientId,
+    scope: scopes,
+    redirect_uri: redirectUri,
+    state: state,
+  });
+
+  const redirectUrl = `https://accounts.spotify.com/authorize?${params.toString()}`;
 
   return res.redirect(redirectUrl);
 }
