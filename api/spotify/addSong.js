@@ -21,61 +21,72 @@ async function getPlaylistTracks(token) {
 }
 
 export default async function handler(req, res) {
+  const allowedOrigins = [
+    "https://bradygehrman.vercel.app",
+    "http://localhost:3000",
+  ];
+
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+
   if (req.method === "OPTIONS") {
-    console.log("Handling OPTIONS request for CORS");
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000"); // Adjust according to your frontend origin
-    res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-    res.setHeader("Access-Control-Allow-Credentials", "true");
+    console.log("OPTIONS");
     return res.status(200).end();
-  }
+  } else {
+    const { cookies } = req;
+    const token = cookies["access_token"];
 
-  const { cookies } = req;
-  const token = cookies["access_token"];
-
-  if (!token) {
-    console.log("Access token is null");
-    return res.redirect(loginURL);
-  }
-
-  const { songURI } = req.body;
-
-  if (!songURI) {
-    return res.status(400).json({ error: "songURI is required." });
-  }
-
-  if (!songURI) {
-    return res.status(400).json({ error: "songURI is required." });
-  }
-
-  try {
-    const existingTracks = await getPlaylistTracks(token);
-
-    if (existingTracks.includes(songURI)) {
-      return res
-        .status(400)
-        .json({ error: "Song is already in the playlist." });
+    if (!token) {
+      console.log("Access token is null");
+      return res.redirect(loginURL);
     }
 
-    const postData = {
-      uris: [songURI],
-      position: 0,
-    };
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
+    const { songURI } = req.body;
 
-    await axios.post(
-      `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
-      postData,
-      config
-    );
+    if (!songURI) {
+      return res.status(400).json({ error: "songURI is required." });
+    }
 
-    return res.status(200).json({ message: "Song added to playlist." });
-  } catch (e) {
-    console.error(e.message);
-    return res.status(500).json({ error: "Failed to add song to playlist." });
+    if (!songURI) {
+      return res.status(400).json({ error: "songURI is required." });
+    }
+
+    try {
+      const existingTracks = await getPlaylistTracks(token);
+
+      if (existingTracks.includes(songURI)) {
+        return res
+          .status(400)
+          .json({ error: "Song is already in the playlist." });
+      }
+
+      const postData = {
+        uris: [songURI],
+        position: 0,
+      };
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      await axios.post(
+        `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+        postData,
+        config
+      );
+
+      return res.status(200).json({ message: "Song added to playlist." });
+    } catch (e) {
+      console.error(e.message);
+      return res.status(500).json({ error: "Failed to add song to playlist." });
+    }
   }
 }
