@@ -8,7 +8,7 @@ const frontend_url = process.env.FRONTEND_URL;
 
 export default async function handler(req, res) {
   const { code, state } = req.query;
-  console.log("state", state);
+  console.log("state from request", state);
   const cookies = cookie.parse(req.headers.cookie || "");
   console.log("cookies", cookies);
   const storedState = cookies.spotify_auth_state;
