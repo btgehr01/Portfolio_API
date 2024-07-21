@@ -1,5 +1,4 @@
 import axios from "axios";
-import getAccessToken from "../auth/token.js";
 
 const playlistId = process.env.SPOTIFY_PLAYLIST_ID;
 
@@ -21,19 +20,36 @@ async function getPlaylistTracks(token) {
 }
 
 export default async function handler(req, res) {
+  const allowedOrigins = [
+    "https://bradygehrman.vercel.app",
+    "http://localhost:3000",
+  ];
+
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+
+  res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
+  const { cookies } = req;
+  const token = cookies["access_token"];
+
+  if (!token) {
+    console.log("Access token is null");
+    return res.redirect(loginURL);
+  }
+
   const { songURI } = req.query;
 
   if (!songURI) {
     return res.status(400).json({ error: "songURI is required." });
-  }
-
-  let token = null;
-
-  try {
-    token = await getAccessToken();
-  } catch (e) {
-    console.error(e);
-    return res.status(500).json({ error: "Failed to get access token." });
   }
 
   try {
