@@ -37,6 +37,7 @@ export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Credentials", "true");
 
   if (req.method === "OPTIONS") {
+    console.log("OPTIONS");
     return res.status(200).end();
   }
 
