@@ -60,8 +60,8 @@ export default async function handler(req, res) {
 
     if (existingTracks.includes(songURI)) {
       return res
-        .status(400)
-        .json({ error: "Song is already in the playlist." });
+        .status(409)
+        .json({ error: "This song is already in the playlist." });
     }
 
     const postData = {
