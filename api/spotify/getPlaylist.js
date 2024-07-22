@@ -33,7 +33,7 @@ export default async function handler(req, res) {
 
   try {
     const response = await axios.get(
-      `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+      `https://api.spotify.com/v1/playlists/${playlistId}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -43,6 +43,6 @@ export default async function handler(req, res) {
     return res.status(200).json(response.data);
   } catch (e) {
     console.error(e);
-    return res.status(500).json({ error: "Failed to fetch playlist songs." });
+    return res.status(500).json({ error: "Failed to fetch playlist." });
   }
 }
