@@ -17,7 +17,9 @@ export default async function handler(req, res) {
   if (!state || state !== storedState) {
     console.error("State is null or was altered.");
     const errorMessage = encodeURIComponent(defaultErrorMessage);
-    return res.redirect(`${frontend_url}/error?errorMessage=${errorMessage}`);
+    return res.redirect(
+      `${frontend_url}/errorScreen?errorMessage=${errorMessage}`
+    );
   } else {
     res.setHeader(
       "Set-Cookie",
@@ -66,7 +68,9 @@ export default async function handler(req, res) {
     } catch (error) {
       console.error("Error exchanging authorization code:", error);
       const errorMessage = encodeURIComponent(defaultErrorMessage);
-      return res.redirect(`${frontend_url}/error?errorMessage=${errorMessage}`);
+      return res.redirect(
+        `${frontend_url}/errorScreen?errorMessage=${errorMessage}`
+      );
     }
   }
 }
