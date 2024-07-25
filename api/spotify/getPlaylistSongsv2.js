@@ -11,7 +11,7 @@ const collectionName = process.env.COLLECTION_NAME;
 const documentId = process.env.DOCUMENT_ID;
 const MAX_IDS_PER_REQUEST = 50;
 
-export async function handler(req, res) {
+export default async function handler(req, res) {
   const allowedOrigins = [
     "https://bradygehrman.vercel.app",
     "http://localhost:3000",
