@@ -33,7 +33,9 @@ export default async function handler(req, res) {
   }
 
   try {
+    console.log("Trying to connect to client");
     await client.connect();
+    console.log("Connected to client");
     const database = client.db(dbName);
     const collection = database.collection(collectionName);
 
