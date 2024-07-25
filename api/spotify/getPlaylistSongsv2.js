@@ -9,6 +9,8 @@ const client = new MongoClient(uri, {
   useUnifiedTopology: true,
 });
 
+console.log("client", client);
+
 const dbName = process.env.DB_NAME;
 const collectionName = process.env.COLLECTION_NAME;
 const documentId = process.env.DOCUMENT_ID;
