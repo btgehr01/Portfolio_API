@@ -39,6 +39,8 @@ export async function handler(req, res) {
       _id: new MongoClient.ObjectId(documentId),
     });
 
+    console.log("document", document);
+
     if (!document) {
       return res.status(404).json({ error: "Document not found." });
     }
@@ -50,6 +52,8 @@ export async function handler(req, res) {
     }
 
     const ids = songIDs.slice(0, MAX_IDS_PER_REQUEST).join(",");
+
+    console.log("ids", ids);
 
     const encodedIds = encodeURIComponent(ids);
 
