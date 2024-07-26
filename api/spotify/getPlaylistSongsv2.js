@@ -1,8 +1,12 @@
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 import axios from "axios";
 import getAccessToken from "../auth/token.js";
 
 const uri = process.env.MONGODB_CONNECTION_STRING;
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 const dbName = process.env.DB_NAME;
 const collectionName = process.env.COLLECTION_NAME;
 const documentId = process.env.DOCUMENT_ID;
@@ -28,25 +32,15 @@ export default async function handler(req, res) {
   }
 
   try {
-    const client = new MongoClient(uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log("client", client);
-    console.log("uri", uri);
     console.log("Trying to connect to client");
-    try {
-      await client.connect();
-      console.log("Connected to MongoDB");
-    } catch (connectionError) {
-      console.error("Error connecting to MongoDB", connectionError);
-      return res.status(500).json({ error: "Failed to connect to MongoDB." });
-    }
+
+    await client.connect();
+    console.log("Connected to MongoDB");
     const database = client.db(dbName);
     const collection = database.collection(collectionName);
 
     const document = await collection.findOne({
-      _id: new MongoClient.ObjectId(documentId),
+      _id: new ObjectId(documentId),
     });
 
     console.log("document", document);
