@@ -1,7 +1,7 @@
 import axios from "axios";
 import cookie from "cookie";
 import nodemailer from "nodemailer";
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 
 const uri = process.env.MONGODB_CONNECTION_STRING;
 const client = new MongoClient(uri, {
@@ -99,9 +99,10 @@ export default async function handler(req, res) {
     const collection = database.collection(collectionName);
 
     const existingSong = await collection.findOne({
-      _id: new MongoClient.ObjectId(documentId),
+      _id: new ObjectId(documentId),
       songIDs: songID,
     });
+
     if (existingSong) {
       return res
         .status(409)
@@ -109,7 +110,7 @@ export default async function handler(req, res) {
     }
 
     await collection.updateOne(
-      { _id: new MongoClient.ObjectId(documentId) },
+      { _id: new ObjectId(documentId) },
       { $push: { songIDs: songID } }
     );
 
