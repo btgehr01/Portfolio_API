@@ -29,17 +29,13 @@ export default async function handler(req, res) {
   }
 
   try {
-    console.log("connecting");
     await client.connect();
-    console.log("connected");
     const database = client.db(dbName);
     const collection = database.collection(collectionName);
 
     const document = await collection.findOne({
       _id: new ObjectId(documentId),
     });
-
-    console.log(document);
 
     if (!document) {
       return res.status(404).json({ error: "Document not found." });
@@ -53,11 +49,7 @@ export default async function handler(req, res) {
 
     const ids = songIDs.slice(0, MAX_IDS_PER_REQUEST).join(",");
 
-    console.log(ids);
-
     const encodedIds = encodeURIComponent(ids);
-
-    console.log(encodedIds);
 
     let token = null;
 
