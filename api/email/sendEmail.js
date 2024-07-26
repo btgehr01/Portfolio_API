@@ -1,10 +1,7 @@
 import nodemailer from "nodemailer";
 
 export default async (req, res) => {
-  const allowedOrigins = [
-    "https://bradygehrman.vercel.app",
-    "http://localhost:3000",
-  ];
+  const allowedOrigins = ["https://bradygehrman.vercel.app"];
 
   const origin = req.headers.origin;
 

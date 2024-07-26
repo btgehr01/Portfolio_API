@@ -4,10 +4,7 @@ import getAccessToken from "../auth/token.js";
 const playlistId = process.env.SPOTIFY_PLAYLIST_ID;
 
 export default async function handler(req, res) {
-  const allowedOrigins = [
-    "https://bradygehrman.vercel.app",
-    "http://localhost:3000",
-  ];
+  const allowedOrigins = ["https://bradygehrman.vercel.app"];
 
   const origin = req.headers.origin;
 
