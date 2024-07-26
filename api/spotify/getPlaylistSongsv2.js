@@ -73,7 +73,7 @@ export default async function handler(req, res) {
       }
     );
 
-    return res.status(200).json(response);
+    return res.status(200).json(response.data);
   } catch (error) {
     console.error("Failed to fetch playlist songs:", error.message);
     return res.status(500).json({ error: "Failed to fetch playlist songs." });
