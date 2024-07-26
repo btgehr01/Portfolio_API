@@ -53,7 +53,11 @@ export default async function handler(req, res) {
 
     const ids = songIDs.slice(0, MAX_IDS_PER_REQUEST).join(",");
 
+    console.log(ids);
+
     const encodedIds = encodeURIComponent(ids);
+
+    console.log(encodedIds);
 
     let token = null;
 
