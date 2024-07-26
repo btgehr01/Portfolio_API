@@ -10,8 +10,7 @@ function generateRandomString(length) {
 
 export default function handler(req, res) {
   const state = generateRandomString(16);
-  const scopes =
-    "user-read-email user-read-private playlist-modify-public user-modify-playback-state";
+  const scopes = "user-read-email user-read-private";
 
   res.setHeader(
     "Set-Cookie",
