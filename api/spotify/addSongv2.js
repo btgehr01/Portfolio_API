@@ -4,10 +4,7 @@ import nodemailer from "nodemailer";
 import { MongoClient, ObjectId } from "mongodb";
 
 const uri = process.env.MONGODB_CONNECTION_STRING;
-const client = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+const client = new MongoClient(uri);
 
 const dbName = process.env.DB_NAME;
 const collectionName = process.env.COLLECTION_NAME;
