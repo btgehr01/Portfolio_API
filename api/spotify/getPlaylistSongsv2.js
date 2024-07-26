@@ -3,11 +3,6 @@ import axios from "axios";
 import getAccessToken from "../auth/token.js";
 
 const uri = process.env.MONGODB_CONNECTION_STRING;
-const client = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
 const dbName = process.env.DB_NAME;
 const collectionName = process.env.COLLECTION_NAME;
 const documentId = process.env.DOCUMENT_ID;
@@ -33,6 +28,10 @@ export default async function handler(req, res) {
   }
 
   try {
+    const client = new MongoClient(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
     console.log("client", client);
     console.log("uri", uri);
     console.log("Trying to connect to client");
