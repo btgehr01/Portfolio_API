@@ -36,7 +36,6 @@ async function sendEmailToAdmin(spotifyUsername, songId) {
 
   try {
     const info = await transporter.sendMail(mailOptions);
-    res.status(200).send("Email sent: " + info.response);
   } catch (error) {
     console.error("Error sending playlist update email:", error);
   }
