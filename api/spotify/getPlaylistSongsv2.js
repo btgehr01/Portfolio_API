@@ -36,8 +36,13 @@ export default async function handler(req, res) {
     console.log("client", client);
     console.log("uri", uri);
     console.log("Trying to connect to client");
-    await client.connect();
-    console.log("Connected to client");
+    try {
+      await client.connect();
+      console.log("Connected to MongoDB");
+    } catch (connectionError) {
+      console.error("Error connecting to MongoDB", connectionError);
+      return res.status(500).json({ error: "Failed to connect to MongoDB." });
+    }
     const database = client.db(dbName);
     const collection = database.collection(collectionName);
 
