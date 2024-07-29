@@ -44,7 +44,7 @@ export default async function handler(req, res) {
       return res.status(200).json({ message: "No songs to fetch." });
     }
 
-    const ids = songIDs.slice(0, MAX_IDS_PER_REQUEST).join(",");
+    const ids = songIDs.slice(0, MAX_IDS_PER_REQUEST).reverse().join(",");
 
     const encodedIds = encodeURIComponent(ids);
 
